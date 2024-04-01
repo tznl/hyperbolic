@@ -1,6 +1,6 @@
 CC = clang
 
-SRC = main.c codepoints.c define.c scene/main_menu.c scene/settings.c
+SRC = main.c scenemanager.c lua_functions.c codepoints.c define.c scene/main_menu.c scene/settings.c
 CFLAGS = -std=c99 -lraylib -lm -g -Wall -llua
 INCDIRS = -I/usr/include/lua5.4/
 make:

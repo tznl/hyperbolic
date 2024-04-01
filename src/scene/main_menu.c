@@ -1,8 +1,9 @@
-#include "../include/scene.h"
-#include "../include/define.h"
 #include "raylib.h"
 #include <stdio.h>
 
+#include "../include/scene.h"
+#include "../include/define.h"
+#include "../include/scenemanager.h"
 
 void main_execute(int *selected);
 
@@ -68,7 +69,7 @@ void main_execute(int *selected)
 		break;
 	case 1:
 		*selected = 0;
-		current_scene = SETTINGS;
+		switch_scene(SETTINGS);
 		break;
 	case 2:
 		exit_window = true;

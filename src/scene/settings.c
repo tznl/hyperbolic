@@ -16,7 +16,7 @@ void draw_settings()
 	enum options { LETTERBOXING = 0, BACK };
 	float option_horizontal_offset = screen_width/20;
 	float option_size = 60;
-	
+
 
 	Color letterboxing_color;
 	Color letterbox_on;
@@ -24,7 +24,7 @@ void draw_settings()
 
 	Color back_color;
 
-	DrawTexture(menu1, 0 , 0, WHITE);                                
+	DrawTexture(menu1, 0 , 0, WHITE);				
 
 	switch (selected) {
 		case LETTERBOXING:
@@ -40,18 +40,25 @@ void draw_settings()
 			letterbox_off = WHITE;
 			break;
 	}
+	if (letterbox) {
+		letterbox_on	= YELLOW;
+		letterbox_off	= WHITE;
+	} else {
+		letterbox_on	= WHITE;
+		letterbox_off	= YELLOW;
+	}
 
-	DrawTextEx(default_font, "letterboxing",                           
+	DrawTextEx(default_font, "letterboxing",
 		(Vector2){option_horizontal_offset, screen_height*0.60}, 
 		option_size, 5, letterboxing_color);
-	DrawTextEx(default_font, "on",                           
+	DrawTextEx(default_font, "on",
 		(Vector2){screen_width/1.50, screen_height*0.60}, 
 		option_size, 5, letterbox_on);
-	DrawTextEx(default_font, "off",                           
+	DrawTextEx(default_font, "off",
 		(Vector2){screen_width/1.25, screen_height*0.60}, 
 		option_size, 5, letterbox_off);
 
-	DrawTextEx(default_font, "back",                           
+	DrawTextEx(default_font, "back",
 		(Vector2){option_horizontal_offset, screen_height*0.75}, 
 		option_size, 5, back_color);
 
