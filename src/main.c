@@ -1,29 +1,22 @@
 #include "raylib.h"
 
 #include <stdio.h>
-
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
+#include <sqlite3.h>
 
 #include "include/define.h"
 #include "include/scene.h"
-#include "include/lua_functions.h"
+#include "include/codepoints.h"
 
 #define RIDX_CONFIG "config"
 
 void draw_scene(int *code);
-static void draw_render(RenderTexture2D render, bool letterbox);
-
-Texture2D menu1;
-Font default_font;
+static void draw_render(RenderTexture2D render);
 
 int main(void)
 {
-	if(load_config())
+	if(config_retrieve() == 1) {
 		return 1;
-	if(get_letterbox(&letterbox))
-		return 1;
+	}
 
 	screen_width = 640;
 	screen_height = 480;
@@ -32,16 +25,13 @@ int main(void)
 	InitAudioDevice();
 	SetTargetFPS(60);
 
-	RenderTexture2D render = LoadRenderTexture(screen_width, screen_height);
-	menu1 		= LoadTexture("assets/default/testmenu.png");
-	default_font 	= LoadFontEx(
-		"assets/default/"
-			"NotoSerifDisplay-Italic-VariableFont_wdth,wght.ttf",
-		50,
-		0,
-		0);
-	SetTextureFilter(default_font.texture, TEXTURE_FILTER_BILINEAR);
+	assign_default();
+	current_res = &default_res;
 
+	RenderTexture2D render = LoadRenderTexture(screen_width, screen_height);
+//	SetTextureFilter(render.texture, TEXTURE_FILTER_BILINEAR);
+
+//	screen_load_font();
 
 	while(!exit_window) {
 
@@ -51,22 +41,24 @@ int main(void)
 
 		BeginDrawing();
 
-		draw_render(render, letterbox);
+		draw_render(render);
 
 		EndDrawing();
 
-		if (WindowShouldClose()) exit_window = true;
+		if (WindowShouldClose()) 
+			exit_window = true;
 	}
+	unload_current_res();
+	config_free(&config_current); 
 	CloseAudioDevice();
 	CloseWindow();
-	lua_close(L);
 
 	return 0;
 }
 
-static void draw_render(RenderTexture2D render, bool letterbox)
+static void draw_render(RenderTexture2D render)
 {
-	if (!letterbox) {
+	if (!config_current.letterbox) {
 		DrawTexturePro(
 			render.texture,
 			(Rectangle)

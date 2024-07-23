@@ -1,8 +1,11 @@
 CC = clang
 
-SRC = main.c scenemanager.c lua_functions.c codepoints.c define.c scene/main_menu.c scene/settings.c
-CFLAGS = -std=c99 -lraylib -lm -g -Wall -llua
-INCDIRS = -I/usr/include/lua5.4/
+SRC	= main.c codepoints.c define.c resource.c\
+		scene/main_menu.c scene/settings.c
+
+CFLAGS	= -std=c99 -lraylib -lm -g -Wall -lsqlite3
+INCDIRS	= -I/usr/include/lua5.4/ -I../raylib/src/
+LIBDIRS	= -L../raylib/src/ 
 make:
 
 	$(CC) $(SRC) -o ../run $(CFLAGS) $(INCDIRS) $(LIBDIRS)

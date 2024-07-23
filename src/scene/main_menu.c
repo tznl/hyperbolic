@@ -4,6 +4,7 @@
 #include "../include/scene.h"
 #include "../include/define.h"
 #include "../include/scenemanager.h"
+#include "../include/codepoints.h"
 
 void main_execute(int *selected);
 
@@ -12,13 +13,13 @@ void draw_main()
 	enum options { PLAY = 0, SETTINGS, QUIT };
 	float option_horizontal_offset = screen_width/1.5;
 	float option_size = 60;
-	
+
 
 	Color play_color;
 	Color settings_color;
 	Color quit_color;
 
-	DrawTexture(menu1, 0 , 0, WHITE);                                
+	DrawTexture(current_res->menu_background, 0 , 0, WHITE);                                
 
 	switch (selected) {
 		case PLAY:
@@ -38,18 +39,18 @@ void draw_main()
 			break;
 	}
 
-	DrawTextEx(default_font, "hyperbolic",                           
+	DrawTextEx(current_res->font, codepoint_text,                           
 		(Vector2){screen_width/20, screen_height/4}, 75, 5, WHITE);
 
-	DrawTextEx(default_font, "play",                           
+	DrawTextEx(current_res->font, "𐑐𐑤𐑱",                           
 		(Vector2){option_horizontal_offset, screen_height*0.45}, 
 		option_size, 5, play_color);
 
-	DrawTextEx(default_font, "settings",                           
+	DrawTextEx(current_res->font, "𐑕𐑧𐑑𐑦𐑙",                           
 		(Vector2){option_horizontal_offset, screen_height*0.60}, 
 		option_size, 5, settings_color);
 
-	DrawTextEx(default_font, "quit",                           
+	DrawTextEx(current_res->font, "𐑒𐑢𐑦𐑑",                           
 		(Vector2){option_horizontal_offset, screen_height*0.75}, 
 		option_size, 5, quit_color);
 	
@@ -69,7 +70,8 @@ void main_execute(int *selected)
 		break;
 	case 1:
 		*selected = 0;
-		switch_scene(SETTINGS);
+		config_buffer = config_current;
+		current_scene = SETTINGS;
 		break;
 	case 2:
 		exit_window = true;

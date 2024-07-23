@@ -1,6 +1,8 @@
 #include "include/codepoints.h"
+#include "include/define.h"
+#include "raylib.h"
 #include <string.h>
-#include <stdlib.h>
+
 int *CodepointRemoveDuplicates(int *codepoints, int codepointCount, int *codepointsResultCount)
 {
 	int codepointsNoDupsCount = codepointCount;
@@ -31,3 +33,24 @@ only required positions are filled (codepointsNoDupsCount) */
 	*codepointsResultCount = codepointsNoDupsCount;
 	return codepointsNoDups;
 }
+
+void screen_load_font()
+{
+        int codepointCount = 0;
+	int *codepoints = LoadCodepoints(codepoint_text, &codepointCount);
+        int codepointsNoDupsCount = 0;
+        int *codepointsNoDups = CodepointRemoveDuplicates(
+                        codepoints,
+                        codepointCount,
+                        &codepointsNoDupsCount);
+
+        UnloadCodepoints(codepoints);
+
+        current_res->font = LoadFontEx("assets/default/font/"
+		"DoolittleGaramond-Italic.otf",
+                50,
+                codepointsNoDups,
+                codepointsNoDupsCount); 
+
+	free(codepointsNoDups);
+}   
