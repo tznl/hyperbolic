@@ -2,6 +2,7 @@
 #define DEFINE_H
 
 #include "raylib.h"
+#include <sqlite3.h>
 
 #define RIDX_CONFIG "config"
   
@@ -18,7 +19,7 @@ struct config
 {
 	bool fullscreen;
 	bool letterbox;
-	char* language;
+	sqlite3* db_language;
 };
 
 extern struct res *current_res;

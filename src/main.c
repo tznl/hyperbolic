@@ -6,11 +6,10 @@
 #include "include/define.h"
 #include "include/scene.h"
 #include "include/codepoints.h"
+#include "include/language.h"
 
-#define RIDX_CONFIG "config"
-
-void draw_scene(int *code);
 static void draw_render(RenderTexture2D render);
+void draw_scene(int *code);
 
 int main(void)
 {
@@ -31,7 +30,8 @@ int main(void)
 	RenderTexture2D render = LoadRenderTexture(screen_width, screen_height);
 //	SetTextureFilter(render.texture, TEXTURE_FILTER_BILINEAR);
 
-//	screen_load_font();
+//	screen_load_font("test");
+	test_load_main_menu();
 
 	while(!exit_window) {
 

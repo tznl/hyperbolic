@@ -1,6 +1,6 @@
 CC = clang
 
-SRC	= main.c codepoints.c define.c resource.c\
+SRC	= main.c codepoints.c define.c resource.c language.c\
 		scene/main_menu.c scene/settings.c
 
 CFLAGS	= -std=c99 -lraylib -lm -g -Wall -lsqlite3

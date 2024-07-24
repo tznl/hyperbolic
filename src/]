@@ -2,7 +2,6 @@
 #include "include/define.h"
 #include "raylib.h"
 #include <string.h>
-#include <stdio.h>
 
 int *CodepointRemoveDuplicates
 	(int *codepoints, int codepointCount, int *codepointsResultCount)
@@ -53,14 +52,12 @@ void screen_load_font(char* string)
 	sqlite3_prepare_v2(config_current.db_language, 
 		"SELECT font FROM metadata", -1, &stmt, NULL);
 	sqlite3_step(stmt);
-	char* path = "assets/default/font/";
-	char* font_name = (char*)sqlite3_column_text(stmt, 0);
 	char* font_path = malloc(
-		strlen(path) +
-		strlen(font_name) +
+		strlen("assets/default/font/") +
+		strlen((char*)sqlite3_column_text(stmt, 0)) +
 		+ 1);
-	strcpy(font_path, path);
-	strcat(font_path, font_name);
+	strcpy(font_path, "assets/default/font/");
+	strcpy(font_path, strlen((char*)sqlite3_column_text(stmt, 0)));
 	sqlite3_finalize(stmt);
 
         UnloadCodepoints(codepoints);
@@ -69,7 +66,6 @@ void screen_load_font(char* string)
                 50,
                 codepointsNoDups,
                 codepointsNoDupsCount); 
-
 	free(font_path);
 	free(codepointsNoDups);
 }   

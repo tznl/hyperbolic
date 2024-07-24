@@ -3,8 +3,8 @@
 
 #include "../include/scene.h"
 #include "../include/define.h"
-#include "../include/scenemanager.h"
 #include "../include/codepoints.h"
+#include "../include/language.h"
 
 void main_execute(int *selected);
 
@@ -39,18 +39,18 @@ void draw_main()
 			break;
 	}
 
-	DrawTextEx(current_res->font, codepoint_text,                           
+	DrawTextEx(current_res->font, text_1,                           
 		(Vector2){screen_width/20, screen_height/4}, 75, 5, WHITE);
 
-	DrawTextEx(current_res->font, "𐑐𐑤𐑱",                           
+	DrawTextEx(current_res->font, text_2,                           
 		(Vector2){option_horizontal_offset, screen_height*0.45}, 
 		option_size, 5, play_color);
 
-	DrawTextEx(current_res->font, "𐑕𐑧𐑑𐑦𐑙",                           
+	DrawTextEx(current_res->font, text_3,                           
 		(Vector2){option_horizontal_offset, screen_height*0.60}, 
 		option_size, 5, settings_color);
 
-	DrawTextEx(current_res->font, "𐑒𐑢𐑦𐑑",                           
+	DrawTextEx(current_res->font, text_4,                           
 		(Vector2){option_horizontal_offset, screen_height*0.75}, 
 		option_size, 5, quit_color);
 	

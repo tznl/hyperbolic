@@ -3,5 +3,5 @@
 #include <stdlib.h>
 
 int *CodepointRemoveDuplicates(int *codepoints, int codepointCount, int *codepointsResultCount);
-void screen_load_font();
+void screen_load_font(char* string);
 #endif
